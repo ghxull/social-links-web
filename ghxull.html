@@ -135,35 +135,35 @@
   .friends-modal-overlay.active .friends-modal { transform: translateY(0); }
 
   .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-  .modal-title { font-size: 16px; font-weight: 700; font-family: var(--font-mono); display: flex; align-items: center; gap: 8px; }
+  .modal-title { font-size: 16px; font-weight: 700; font-family: var(--font-display); display: flex; align-items: center; gap: 8px; }
   .modal-close { background: transparent; border: none; color: var(--text-2); cursor: pointer; transition: color 0.2s; }
   .modal-close:hover { color: var(--text-0); }
 
   .add-friend-form { display: flex; gap: 8px; margin-bottom: 20px; }
   .friend-input {
     flex: 1; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 14px; color: var(--text-0); font-family: var(--font-mono); font-size: 13px;
+    border-radius: 10px; padding: 10px 14px; color: var(--text-0); font-family: var(--font-display); font-size: 13px;
   }
   .friend-input:focus { border-color: var(--text-1); outline: none; }
   .add-btn {
     background: #fff; color: #000; border: none; border-radius: 10px;
     padding: 0 16px; font-weight: 700; font-size: 13px; cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s; font-family: var(--font-display);
   }
   .add-btn:hover { transform: scale(1.05); }
 
-  .section-subtitle { font-size: 11px; font-family: var(--font-mono); color: var(--text-2); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em; }
+  .section-subtitle { font-size: 11px; font-family: var(--font-display); font-weight: 600; color: var(--text-2); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em; }
   
   .requests-list { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
   .request-item {
     display: flex; align-items: center; justify-content: space-between;
     background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-    padding: 10px 12px; border-radius: 10px; font-size: 13px; font-family: var(--font-mono);
+    padding: 10px 12px; border-radius: 10px; font-size: 13px; font-family: var(--font-display);
   }
   .request-actions { display: flex; gap: 6px; }
-  .accept-btn { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.4); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; }
+  .accept-btn { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.4); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; font-family: var(--font-display); font-weight: 600; }
   .accept-btn:hover { background: rgba(46, 204, 113, 0.4); }
-  .empty-requests { font-size: 12px; color: var(--text-2); font-family: var(--font-mono); text-align: center; padding: 15px 0; }
+  .empty-requests { font-size: 12px; color: var(--text-2); font-family: var(--font-display); text-align: center; padding: 15px 0; }
 
   .page {
     position: relative; z-index: 3; min-height: 100vh;
@@ -247,7 +247,7 @@
   .toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
     background: var(--panel-strong); border: 1px solid var(--border-strong);
-    padding: 10px 18px; border-radius: 30px; font-family: var(--font-mono); font-size: 12px;
+    padding: 10px 18px; border-radius: 30px; font-family: var(--font-display); font-size: 12px;
     display: flex; align-items: center; gap: 8px; opacity: 0; pointer-events: none; transition: all 0.3s var(--ease); z-index: 200;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -265,7 +265,6 @@
   <div class="splash-sub">azcik rize havası</div>
 </div>
 
-<!-- SOL ÜST KONTROLLER (SES + ARKADAŞ EKLEME) -->
 <div class="top-left-controls">
   <button class="global-audio-btn muted" id="globalAudioBtn" aria-label="Toggle Audio">
     <svg class="audio-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
@@ -277,7 +276,6 @@
   </button>
 </div>
 
-<!-- ARKADAŞLIK MODALI -->
 <div class="friends-modal-overlay" id="friendsModalOverlay">
   <div class="friends-modal">
     <div class="modal-header">
@@ -297,8 +295,7 @@
 
     <div class="section-subtitle">Pending Requests</div>
     <div class="requests-list" id="requestsList">
-      <!-- Dinamik dolacak -->
-    </div>
+      </div>
   </div>
 </div>
 
