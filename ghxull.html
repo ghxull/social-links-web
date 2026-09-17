@@ -89,9 +89,9 @@
   #splash {
     position: fixed; inset: 0; z-index: 9999;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    background: rgba(3, 3, 5, 0.92); backdrop-filter: blur(10px);
+    background: rgba(3, 3, 5, 0.95); backdrop-filter: blur(10px);
     cursor: url('buton.png'), pointer;
-    transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);
+    transition: opacity 0.5s var(--ease), visibility 0.5s var(--ease);
   }
   #splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
@@ -99,7 +99,6 @@
   .splash-label span { color: var(--text-2); }
   .splash-sub { margin-top: 8px; font-size: 13px; color: var(--text-2); font-family: var(--font-mono); }
 
-  /* SOL ÜST BUTONLAR GRUBU */
   .top-left-controls {
     position: fixed; top: 24px; left: 24px; z-index: 100;
     display: flex; flex-direction: column; gap: 10px;
@@ -118,7 +117,6 @@
   .global-audio-btn.muted .audio-on-icon { display: none; }
   .global-audio-btn.muted .audio-off-icon { display: block; color: var(--text-2); }
 
-  /* DAHA SADE VE MİNİMALİST ARKADAŞLIK PENCERESİ */
   .friends-modal-overlay {
     position: fixed; inset: 0; z-index: 1000;
     background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(6px);
@@ -237,8 +235,6 @@
   .link-btn.instagram-btn:hover { background: rgba(225, 48, 108, 0.15); border-color: rgba(225, 48, 108, 0.4); }
   .link-btn.instagram-btn:hover .link-icon { color: #E1306C; }
 
-  .link-body, .link-arrow { display: none; }
-
   .card-footer {
     padding: 16px 26px 24px; text-align: center; border-top: 1px solid var(--border);
   }
@@ -322,7 +318,7 @@
       <p class="bio">sadece takılıyorum🩸</p>
 
       <div class="stat-row">
-        <div class="stat"><div class="stat-value">2</div><div class="stat-label">VISITS</div></div>
+        <div class="stat"><div class="stat-value" id="visitCountDisplay">2</div><div class="stat-label">VISITS</div></div>
         <div class="stat-divider"></div>
         <div class="stat"><div class="stat-value" id="friendCountDisplay">0</div><div class="stat-label">FRIENDS</div></div>
         <div class="stat-divider"></div>
@@ -364,11 +360,17 @@
 </div>
 
 <script>
-lucide.createIcons();
+// İkonlar yüklenemese bile kodun patlamasını engelle
+try {
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+} catch (e) {}
 
 window.addEventListener('load', () => {
   setTimeout(() => document.getElementById('mainCard').classList.add('in'), 80);
   loadFriendData();
+  handleVisits();
 });
 
 const splash = document.getElementById('splash');
@@ -385,6 +387,7 @@ function updateAudioButtonState(isPlaying) {
   }
 }
 
+// Tıklandığında splash ekranı KESİNLİKLE kapanacak şekilde garantilendi
 splash.addEventListener('click', () => {
   splash.classList.add('hidden');
   audio.play().then(() => {
@@ -406,7 +409,17 @@ globalAudioBtn.addEventListener('click', () => {
 audio.addEventListener('pause', () => updateAudioButtonState(false));
 audio.addEventListener('play', () => updateAudioButtonState(true));
 
-/* Arkadaşlık Sistemi Mantığı */
+function handleVisits() {
+  const visitDisplay = document.getElementById('visitCountDisplay');
+  let visits = parseInt(localStorage.getItem('ghxul_visits') || '124');
+  if (!sessionStorage.getItem('visited_session')) {
+    visits += 1;
+    localStorage.setItem('ghxul_visits', visits.toString());
+    sessionStorage.setItem('visited_session', 'true');
+  }
+  visitDisplay.textContent = visits;
+}
+
 const friendsMenuBtn = document.getElementById('friendsMenuBtn');
 const friendsModalOverlay = document.getElementById('friendsModalOverlay');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
