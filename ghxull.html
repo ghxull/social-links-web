@@ -151,7 +151,10 @@
   }
   .add-btn:hover { opacity: 0.85; }
 
-  .section-subtitle { font-size: 10px; font-family: var(--font-display); font-weight: 600; color: var(--text-2); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.06em; }
+  .section-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .section-subtitle { font-size: 10px; font-family: var(--font-display); font-weight: 600; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.06em; }
+  .clear-all-btn { background: transparent; border: none; color: #ff5c5c; font-size: 10px; font-family: var(--font-display); font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
+  .clear-all-btn:hover { opacity: 0.8; }
   
   .requests-list { max-height: 160px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
   .request-item {
@@ -290,7 +293,10 @@
       <button type="submit" class="add-btn">Add</button>
     </form>
 
-    <div class="section-subtitle">Pending Requests</div>
+    <div class="section-header-row">
+      <div class="section-subtitle">Pending Requests</div>
+      <button class="clear-all-btn" id="clearAllBtn" type="button">Clear All</button>
+    </div>
     <div class="requests-list" id="requestsList"></div>
   </div>
 </div>
@@ -360,7 +366,6 @@
 </div>
 
 <script>
-// İkonlar yüklenemese bile kodun patlamasını engelle
 try {
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
@@ -387,7 +392,6 @@ function updateAudioButtonState(isPlaying) {
   }
 }
 
-// Tıklandığında splash ekranı KESİNLİKLE kapanacak şekilde garantilendi
 splash.addEventListener('click', () => {
   splash.classList.add('hidden');
   audio.play().then(() => {
@@ -427,6 +431,7 @@ const addFriendForm = document.getElementById('addFriendForm');
 const friendUsernameInput = document.getElementById('friendUsernameInput');
 const requestsList = document.getElementById('requestsList');
 const friendCountDisplay = document.getElementById('friendCountDisplay');
+const clearAllBtn = document.getElementById('clearAllBtn');
 
 friendsMenuBtn.addEventListener('click', () => {
   friendsModalOverlay.classList.add('active');
@@ -491,6 +496,14 @@ addFriendForm.addEventListener('submit', (e) => {
   friendUsernameInput.value = '';
   renderRequests(data.requests);
   spaceToast('Friend request sent');
+});
+
+clearAllBtn.addEventListener('click', () => {
+  const data = getStoredData();
+  if (data.requests.length === 0) return;
+  saveStoredData([], data.count);
+  loadFriendData();
+  spaceToast('All requests cleared');
 });
 
 window.acceptRequest = function(index) {
