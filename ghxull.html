@@ -3,17 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>void.exe // profile</title>
+<title>iam a ghoul // profile</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <style>
+  @font-face {
+  font-family: 'Downcome';
+  src: url('DOWNCOME.TTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
   .link-sub { color: #ffffff !important; }
   .stat-value, .stat-label { color: #fcfcfc !important; }
   .handle-user { color: #ffffff; }
   .handle-date { color: #fff; }
-  .handle { color: #ffffff; }
+  .handle { color: #ffffff; font-family: var(--font-display) !important; }
   
   :root {
     --accent-h: 0;
@@ -95,24 +101,38 @@
   }
   #splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-  .splash-label { font-family: var(--font-mono); font-size: 28px; letter-spacing: 0.14em; color: var(--text-0); text-transform: uppercase; }
+  .splash-label { 
+  font-family: 'Downcome', var(--font-mono); 
+  font-size: 28px; 
+  letter-spacing: 0.14em; 
+  color: var(--text-0); 
+  text-transform: uppercase; 
+}
   .splash-label span { color: var(--text-2); }
   .splash-sub { margin-top: 8px; font-size: 13px; color: var(--text-2); font-family: var(--font-mono); }
 
   .top-left-controls {
     position: fixed; top: 24px; left: 24px; z-index: 100;
-    display: flex; flex-direction: column; gap: 10px;
+    display: flex; flex-direction: column; gap: 8px;
   }
 
   .global-audio-btn, .friends-menu-btn {
-    background: var(--panel-strong); border: 1px solid var(--border-strong);
-    color: var(--text-0); width: 44px; height: 44px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center; backdrop-filter: blur(12px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease);
+    background: rgba(15, 15, 20, 0.4); 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-1); 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; 
+    backdrop-filter: blur(4px);
+    transition: all 0.2s var(--ease);
   }
-  .global-audio-btn:hover, .friends-menu-btn:hover { transform: scale(1.08); border-color: var(--text-1); }
-  .global-audio-btn svg, .friends-menu-btn svg { width: 20px; height: 20px; }
+  .global-audio-btn:hover, .friends-menu-btn:hover { 
+    background: rgba(255, 255, 255, 0.08); 
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--text-0);
+  }
+  .global-audio-btn svg, .friends-menu-btn svg { width: 18px; height: 18px; }
   .global-audio-btn .audio-off-icon { display: none; }
   .global-audio-btn.muted .audio-on-icon { display: none; }
   .global-audio-btn.muted .audio-off-icon { display: block; color: var(--text-2); }
@@ -126,7 +146,7 @@
   .friends-modal-overlay.active { opacity: 1; visibility: visible; }
 
   .friends-modal {
-    width: 100%; max-width: 340px; background: var(--panel-strong);
+   width: 100%; max-width: 340px; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('friendreqsground.gif'); background-size: cover; background-position: center; background-repeat: no-repeat;
     border: 1px solid var(--border-strong); border-radius: 14px;
     padding: 18px; box-shadow: 0 16px 32px rgba(0,0,0,0.6);
     transform: translateY(12px); transition: transform 0.25s var(--ease);
@@ -197,7 +217,7 @@
   .verified-badge { width: 18px; height: 18px; color: var(--text-0); display: inline-flex; flex-shrink: 0; }
   .verified-badge svg { width: 100%; height: 100%; }
 
-  .handle { font-family: var(--font-mono); font-size: 12px; color: var(--text-2); margin-bottom: 14px; }
+  .handle { font-family: var(--font-display); font-size: 12px; color: var(--text-2); margin-bottom: 14px; }
   .bio { font-size: 13.5px; line-height: 1.6; color: var(--text-1); max-width: 300px; margin: 0 auto 20px; }
 
   .stat-row { display: flex; justify-content: center; gap: 22px; margin-bottom: 10px; }
@@ -242,7 +262,8 @@
     padding: 16px 26px 24px; text-align: center; border-top: 1px solid var(--border);
   }
   .footer-tag { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-2); }
-  .footer-tag span { color: var(--text-0); }
+  .footer-tag a { color: var(--text-0); transition: opacity 0.2s; }
+  .footer-tag a:hover { opacity: 0.8; text-decoration: underline; }
 
   .toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
@@ -261,8 +282,8 @@
 <div class="vignette"></div>
 
 <div id="splash">
-  <div class="splash-label">CLICK TO ENTER <span></span></div>
-  <div class="splash-sub">azcik rize havası</div>
+  <div class="splash-label">CLICK TO ENTER.. <span></span></div>
+  <div class="splash-sub">🌹</div>
 </div>
 
 <div class="top-left-controls">
@@ -324,7 +345,7 @@
       <p class="bio">sadece takılıyorum🩸</p>
 
       <div class="stat-row">
-        <div class="stat"><div class="stat-value" id="visitCountDisplay">2</div><div class="stat-label">VISITS</div></div>
+        <div class="stat"><div class="stat-value" id="visitCountDisplay">1</div><div class="stat-label">VISITS</div></div>
         <div class="stat-divider"></div>
         <div class="stat"><div class="stat-value" id="friendCountDisplay">0</div><div class="stat-label">FRIENDS</div></div>
         <div class="stat-divider"></div>
@@ -355,7 +376,7 @@
     </div>
 
     <div class="card-footer">
-      <div class="footer-tag">anteiku by <span>@ghxul1</span></div>
+      <div class="footer-tag">anteiku by <a href="https://github.com/ghxull" target="_blank" rel="noopener">@ghxull</a></div>
     </div>
   </div>
 </div>
@@ -415,13 +436,7 @@ audio.addEventListener('play', () => updateAudioButtonState(true));
 
 function handleVisits() {
   const visitDisplay = document.getElementById('visitCountDisplay');
-  let visits = parseInt(localStorage.getItem('ghxul_visits') || '124');
-  if (!sessionStorage.getItem('visited_session')) {
-    visits += 1;
-    localStorage.setItem('ghxul_visits', visits.toString());
-    sessionStorage.setItem('visited_session', 'true');
-  }
-  visitDisplay.textContent = visits;
+  visitDisplay.textContent = '1';
 }
 
 const friendsMenuBtn = document.getElementById('friendsMenuBtn');
@@ -449,18 +464,17 @@ friendsModalOverlay.addEventListener('click', (e) => {
 
 function getStoredData() {
   const requests = JSON.parse(localStorage.getItem('ghxul_friend_requests') || '[]');
-  const count = parseInt(localStorage.getItem('ghxul_friend_count') || '0');
-  return { requests, count };
+  return { requests, count: 0 };
 }
 
 function saveStoredData(requests, count) {
   localStorage.setItem('ghxul_friend_requests', JSON.stringify(requests));
-  localStorage.setItem('ghxul_friend_count', count.toString());
+  localStorage.setItem('ghxul_friend_count', '0');
 }
 
 function loadFriendData() {
   const data = getStoredData();
-  friendCountDisplay.textContent = data.count;
+  friendCountDisplay.textContent = '0';
   renderRequests(data.requests);
 }
 
@@ -491,7 +505,7 @@ addFriendForm.addEventListener('submit', (e) => {
 
   const data = getStoredData();
   data.requests.push(val);
-  saveStoredData(data.requests, data.count);
+  saveStoredData(data.requests, 0);
   
   friendUsernameInput.value = '';
   renderRequests(data.requests);
@@ -501,7 +515,7 @@ addFriendForm.addEventListener('submit', (e) => {
 clearAllBtn.addEventListener('click', () => {
   const data = getStoredData();
   if (data.requests.length === 0) return;
-  saveStoredData([], data.count);
+  saveStoredData([], 0);
   loadFriendData();
   spaceToast('All requests cleared');
 });
@@ -509,8 +523,7 @@ clearAllBtn.addEventListener('click', () => {
 window.acceptRequest = function(index) {
   const data = getStoredData();
   data.requests.splice(index, 1);
-  data.count += 1;
-  saveStoredData(data.requests, data.count);
+  saveStoredData(data.requests, 0);
   
   loadFriendData();
   spaceToast('Friend added!');
