@@ -86,13 +86,13 @@
   .splash-sub { margin-top: 8px; font-size: 13px; color: var(--text-2); font-family: var(--font-mono); }
 
   .top-left-controls { position: fixed; top: 24px; left: 24px; z-index: 100; display: flex; flex-direction: column; gap: 8px; }
-  .global-audio-btn, .friends-menu-btn {
+  .global-audio-btn, .friends-menu-btn, .extra-custom-btn {
     background: rgba(15,15,20,0.4); border: 1px solid rgba(255,255,255,0.05); color: var(--text-1);
     width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
     backdrop-filter: blur(4px); transition: all 0.2s var(--ease);
   }
-  .global-audio-btn:hover, .friends-menu-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: var(--text-0); }
-  .global-audio-btn svg, .friends-menu-btn svg { width: 18px; height: 18px; }
+  .global-audio-btn:hover, .friends-menu-btn:hover, .extra-custom-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: var(--text-0); }
+  .global-audio-btn svg, .friends-menu-btn svg, .extra-custom-btn svg { width: 18px; height: 18px; }
   .global-audio-btn .audio-off-icon { display: none; }
   .global-audio-btn.muted .audio-on-icon { display: none; }
   .global-audio-btn.muted .audio-off-icon { display: block; color: var(--text-2); }
@@ -221,6 +221,10 @@
   <button class="friends-menu-btn" id="friendsMenuBtn" title="Arkadaşlık İstekleri">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
   </button>
+  <!-- YENİ EKLENEN BUTON -->
+  <button class="extra-custom-btn" id="extraCustomBtn" title="Özel Buton">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+  </button>
 </div>
 
 <div class="friends-modal-overlay" id="friendsModalOverlay">
@@ -285,7 +289,6 @@
 
     <div class="card-footer">
       <div class="footer-tag">anteiku by <a href="https://github.com/ghxull" target="_blank" rel="noopener">@ghxull</a></div>
-      <!-- Git contribution graph trigger update: Verified interface component structural integrity and optimized layout parameters for profile deployment -->
     </div>
   </div>
 </div>
@@ -333,6 +336,11 @@ const toggleModal = (show) => modalOverlay.classList.toggle('active', show);
 document.getElementById('friendsMenuBtn').onclick = () => toggleModal(true);
 document.getElementById('modalCloseBtn').onclick = () => toggleModal(false);
 modalOverlay.onclick = (e) => e.target === modalOverlay && toggleModal(false);
+
+// Yeni eklenen butonun işlevselliği (Örnek bildirim gösterme)
+document.getElementById('extraCustomBtn').onclick = () => {
+  showToast('Özel butona tıklandı!');
+};
 
 const getReqs = () => JSON.parse(localStorage.getItem('ghxul_friend_requests') || '[]');
 const saveReqs = (r) => localStorage.setItem('ghxul_friend_requests', JSON.stringify(r));
