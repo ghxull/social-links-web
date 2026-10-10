@@ -221,9 +221,9 @@
   <button class="friends-menu-btn" id="friendsMenuBtn" title="Arkadaşlık İstekleri">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
   </button>
-  <!-- YENİ EKLENEN BUTON -->
-  <button class="extra-custom-btn" id="extraCustomBtn" title="Özel Buton">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+  <!-- YENİ EKLENEN ÖZEL BUTON (Map-pin İkonu İle) -->
+  <button class="extra-custom-btn" id="extraCustomBtn" title="Location">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
   </button>
 </div>
 
@@ -337,9 +337,9 @@ document.getElementById('friendsMenuBtn').onclick = () => toggleModal(true);
 document.getElementById('modalCloseBtn').onclick = () => toggleModal(false);
 modalOverlay.onclick = (e) => e.target === modalOverlay && toggleModal(false);
 
-// Yeni eklenen butonun işlevselliği (Örnek bildirim gösterme)
+// Yeni eklenen buton işlevi (Örnek bildirim)
 document.getElementById('extraCustomBtn').onclick = () => {
-  showToast('Özel butona tıklandı!');
+  showToast('Location: Kocaeli / Darıca');
 };
 
 const getReqs = () => JSON.parse(localStorage.getItem('ghxul_friend_requests') || '[]');
