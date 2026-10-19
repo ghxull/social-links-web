@@ -46,6 +46,11 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     cursor: url('imlec.png'), auto;
+    transition: filter 0.5s var(--ease);
+  }
+
+  body.dim-theme {
+    filter: brightness(0.85) contrast(1.1);
   }
 
   button, .link-btn, a { cursor: url('buton.png'), pointer; }
@@ -86,13 +91,13 @@
   .splash-sub { margin-top: 8px; font-size: 13px; color: var(--text-2); font-family: var(--font-mono); }
 
   .top-left-controls { position: fixed; top: 24px; left: 24px; z-index: 100; display: flex; flex-direction: column; gap: 8px; }
-  .global-audio-btn, .friends-menu-btn, .extra-custom-btn, .time-btn {
+  .global-audio-btn, .friends-menu-btn, .extra-custom-btn, .time-btn, .theme-toggle-btn {
     background: rgba(15,15,20,0.4); border: 1px solid rgba(255,255,255,0.05); color: var(--text-1);
     width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
     backdrop-filter: blur(4px); transition: all 0.2s var(--ease);
   }
-  .global-audio-btn:hover, .friends-menu-btn:hover, .extra-custom-btn:hover, .time-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: var(--text-0); }
-  .global-audio-btn svg, .friends-menu-btn svg, .extra-custom-btn svg, .time-btn svg { width: 18px; height: 18px; }
+  .global-audio-btn:hover, .friends-menu-btn:hover, .extra-custom-btn:hover, .time-btn:hover, .theme-toggle-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); color: var(--text-0); }
+  .global-audio-btn svg, .friends-menu-btn svg, .extra-custom-btn svg, .time-btn svg, .theme-toggle-btn svg { width: 18px; height: 18px; }
   .global-audio-btn .audio-off-icon { display: none; }
   .global-audio-btn.muted .audio-on-icon { display: none; }
   .global-audio-btn.muted .audio-off-icon { display: block; color: var(--text-2); }
@@ -224,9 +229,12 @@
   <button class="extra-custom-btn" id="extraCustomBtn" title="Location">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
   </button>
-  <!-- YENİ EKLENEN SAAT BUTONU -->
   <button class="time-btn" id="timeBtn" title="Local Time">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+  </button>
+  <!-- YENİ EKLENEN TEMA EFEKTİ BUTONU -->
+  <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Dim Theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
   </button>
 </div>
 
@@ -286,7 +294,7 @@
         <div class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 2 2 9.5l7 3 2.5 7.5 3-4.5 6 4.5 1.5-18z"/></svg></div>
       </a>
       <a class="link-btn instagram-btn" href="https://instagram.com" target="_blank" rel="noopener" title="Instagram">
-        <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
+        <div class="link-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rx><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></div>
       </a>
     </div>
 
@@ -344,14 +352,19 @@ document.getElementById('extraCustomBtn').onclick = () => {
   showToast('Location: Kocaeli / Darıca');
 };
 
-// YENİ SAAT BUTONU İŞLEVİ (Canlı Türkiye Saati Gösterir)
 document.getElementById('timeBtn').onclick = () => {
   const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: 'Europe/Istanbul' });
   showToast(`Local Time: ${currentTime}`);
 };
 
+// YENİ TEMA BUTONU İŞLEVİ
+document.getElementById('themeToggleBtn').onclick = () => {
+  document.body.classList.toggle('dim-theme');
+  showToast('Theme mode toggled');
+};
+
 const getReqs = () => JSON.parse(localStorage.getItem('ghxul_friend_requests') || '[]');
-const saveReqs = (r) => localStorage.setItem('ghxul_friend_requests', JSON.stringify(r));
+const saveReqs = (r) => localStorage.setItem('ghx motives', JSON.stringify(r));
 
 function renderRequests(reqs) {
   reqList.innerHTML = reqs.length ? '' : `<div class="empty-requests">no pending requests</div>`;
